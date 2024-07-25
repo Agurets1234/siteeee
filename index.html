@@ -5,21 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Item Timer</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Иконка сайта -->
+    <link rel="icon" href="https://cdn.xplay.cloud/img/timer_icon.png" type="image/png">
 </head>
 <body>
     <div class="container">
+        <div class="theme-button-container">
+            <button id="toggle-theme-button" onclick="toggleTheme()">Сменить тему</button>
+        </div>
         <h1>Item Timer</h1>
         <div id="input-section">
             <input type="text" id="item-id" placeholder="Введите ID элемента">
             <button id="fetch-item-button" onclick="fetchItem()">Запустить таймер</button>
         </div>
-        <div id="info"></div>
         <div id="item-types-section">
-            <button id="fetch-types-button" onclick="fetchItemTypes()">Получить типы предметов</button>
+            <button id="fetch-types-button" class="info-button" onclick="fetchItemTypes()">Получить типы предметов</button>
+            <button id="fetch-nearest-items-button" class="info-button" onclick="displayNearestItems()">Показать ближайшие 10 предметов</button>
             <select id="item-type-select" onchange="displayItemListByType(this.value)">
                 <option value="">Выберите тип предмета</option>
             </select>
         </div>
+        <div id="info"></div>
         <div id="item-list"></div>
     </div>
     <script src="scripts.js"></script>
