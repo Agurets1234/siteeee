@@ -55,6 +55,13 @@ function displayItemListByType(type) {
     const ul = document.createElement('ul');
     filteredItems.forEach(item => {
         const li = document.createElement('li');
+        
+        // Определяем стиль обводки
+        const isStatTrak = item.WeaponName.includes('StatTrak™');
+        if (isStatTrak) {
+            li.classList.add('stat-trak-item');
+        }
+
         li.innerHTML = `
             <p class="item-name">${item.SkinName}</p>
             <div class="dropdown-content">
@@ -66,11 +73,22 @@ function displayItemListByType(type) {
                 <a href="https://xplay.gg/ru/store?itemId=${item.ID}#preview" target="_blank">Посмотреть в магазине</a>
             </div>
         `;
+
+        // Добавляем обработчик события клика для элемента
+        li.addEventListener('click', () => {
+            displayItem(item);
+        });
+
         ul.appendChild(li);
     });
 
     itemListDiv.appendChild(ul);
 }
+
+
+
+
+
 
 async function fetchItem() {
     const itemIdStr = document.getElementById('item-id').value.trim();
