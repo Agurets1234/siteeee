@@ -100,6 +100,18 @@ li {
     border-radius: 5px;
 }
 
+/* Добавляем стиль для элементов StatTrak™ */
+.stat-trak-item {
+    border: 3px solid rgb(207, 106, 50);  /* Увеличиваем обводку до 3px */
+    background-color: #fafafa;  /* Стандартный фон */
+    box-shadow: 0 0 5px rgba(207, 106, 50, 0.5);  /* Легкая тень для выделения */
+    border-radius: 5px;  /* Скругление углов (по желанию) */
+}
+
+.stat-trak-item:hover {
+    box-shadow: 0 0 10px rgba(207, 106, 50, 0.7);  /* Ярче тень при наведении */
+}
+
 .item-name {
     font-size: 18px;
     font-weight: bold;
