@@ -85,8 +85,75 @@ function displayItemListByType(type) {
     itemListDiv.appendChild(ul);
 }
 
+function displayNearestItems() {
+    // Сортируем предметы по времени до разблокировки
+    const sortedItems = items.slice().sort((a, b) => new Date(a.UnBannedDate) - new Date(b.UnBannedDate));
+    
+    // Берем только первые 10 предметов
+    const nearestItems = sortedItems.slice(0, 10);
 
+    const itemListDiv = document.getElementById('item-list');
+    itemListDiv.innerHTML = '';
 
+    if (nearestItems.length === 0) {
+        itemListDiv.innerHTML = '<p>Нет предметов для отображения.</p>';
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    nearestItems.forEach(item => {
+        const li = document.createElement('li');
+        
+        // Определяем стиль обводки
+        const isStatTrak = item.WeaponName.includes('StatTrak™');
+        if (isStatTrak) {
+            li.classList.add('stat-trak-item');
+        }
+
+        li.innerHTML = `
+            <p class="item-name">${item.SkinName}</p>
+            <div class="dropdown-content">
+                <p><strong>ID:</strong> ${item.ID}</p>
+                <p><strong>Weapon:</strong> ${item.WeaponName}</p>
+                <p><strong>Skin:</strong> ${item.SkinName}</p>
+                <p><strong>Цена:</strong> ${item.XPrice}</p>
+                <p><strong>Разблокируется:</strong> ${item.UnBannedDate}</p>
+                <a href="https://xplay.gg/ru/store?itemId=${item.ID}#preview" target="_blank">Посмотреть в магазине</a>
+            </div>
+        `;
+
+        // Добавляем обработчик события клика для элемента
+        li.addEventListener('click', () => {
+            displayItem(item);
+        });
+
+        ul.appendChild(li);
+    });
+
+    itemListDiv.appendChild(ul);
+}
+
+function toggleTheme() {
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+
+    // Сохраняем выбранную тему в localStorage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+// При загрузке страницы проверяем сохранённую тему
+window.addEventListener('load', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+});
 
 
 
